@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.orbit.orderservice.dto.OrderItemRequestDto;
+import com.orbit.orderservice.dto.OrderRequestDto;
 import com.orbit.orderservice.dto.OrderResponseDto;
-import com.orbit.orderservice.dto.OrderResuestDto;
 import com.orbit.orderservice.exception.OrderNotFoundException;
 import com.orbit.orderservice.service.OrderService;
 
@@ -39,12 +38,12 @@ public class OrderController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderResuestDto request) {
+	public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderRequestDto request) {
 		String userId = "1L";
 		return new ResponseEntity<>(orderService.createOrder(userId,request), HttpStatus.CREATED);
 	}
 	
-	@PatchMapping("/{id}/cancle")
+	@PatchMapping("/{id}/cancel")
 	public ResponseEntity<OrderResponseDto> cancelOrder(@PathVariable Long id) throws OrderNotFoundException {
 		return ResponseEntity.ok(orderService.cancelOrder(id));
 	}

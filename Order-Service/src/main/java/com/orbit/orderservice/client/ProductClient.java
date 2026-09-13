@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.orbit.orderservice.dto.ProductResponseDto;
 
-@FeignClient(name="product-service")
+@FeignClient(name="product-service", fallback = ProductClientFallback.class)
 public interface ProductClient {
 
 	@GetMapping("/api/products/{id}")

@@ -2,7 +2,7 @@ package com.orbit.orderservice.service;
 
 import java.util.List;
 import com.orbit.orderservice.dto.OrderResponseDto;
-import com.orbit.orderservice.dto.OrderResuestDto;
+import com.orbit.orderservice.dto.OrderRequestDto;
 import com.orbit.orderservice.exception.OrderNotFoundException;
 import com.orbit.orderservice.model.OrderStatus;
 
@@ -12,7 +12,7 @@ public interface OrderService {
 	
 	OrderResponseDto getOrderById(Long id) throws OrderNotFoundException;
 	
-	OrderResponseDto createOrder(String userId, OrderResuestDto request);
+	OrderResponseDto createOrder(String userId, OrderRequestDto request);
 	
 	OrderResponseDto  cancelOrder(Long id) throws OrderNotFoundException;
 

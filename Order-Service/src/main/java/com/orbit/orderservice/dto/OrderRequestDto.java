@@ -2,7 +2,7 @@ package com.orbit.orderservice.dto;
 
 import java.util.List;
 
-public class OrderResuestDto {
+public class OrderRequestDto {
 
 	private List<OrderItemRequestDto> items;
 

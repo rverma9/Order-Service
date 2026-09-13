@@ -10,7 +10,7 @@ import com.orbit.orderservice.client.ProductClient;
 import com.orbit.orderservice.dto.OrderItemRequestDto;
 import com.orbit.orderservice.dto.OrderItemResponseDto;
 import com.orbit.orderservice.dto.OrderResponseDto;
-import com.orbit.orderservice.dto.OrderResuestDto;
+import com.orbit.orderservice.dto.OrderRequestDto;
 import com.orbit.orderservice.dto.ProductResponseDto;
 import com.orbit.orderservice.exception.OrderNotFoundException;
 import com.orbit.orderservice.model.Order;
@@ -45,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional
-	public OrderResponseDto createOrder(String userId, OrderResuestDto request) {
+	public OrderResponseDto createOrder(String userId, OrderRequestDto request) {
 		Order order = new Order();
 		order.setOrderNumber(System.currentTimeMillis());
 		order.setUserId(userId);
@@ -54,6 +54,10 @@ public class OrderServiceImpl implements OrderService {
 		List<OrderItem> orderItems = new ArrayList<>();
 		for(OrderItemRequestDto itemRequest : request.getItems()) {
 			ProductResponseDto product = productClient.getProductById(itemRequest.getProductId());
+			if (product == null || !Boolean.TRUE.equals(product.getActive())) {
+			    throw new RuntimeException("Product is not active or unavailable: " + itemRequest.getProductId());
+			}
+			
 			if(!product.getActive()) {
 				throw new RuntimeException("Product is inactive");
 			}
