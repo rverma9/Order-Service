@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,8 +39,7 @@ public class OrderController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<OrderResponseDto> createOrder(@RequestBody OrderRequestDto request) {
-		String userId = "1L";
+	public ResponseEntity<OrderResponseDto> createOrder(@RequestHeader("X-User-Id") String userId, @RequestBody OrderRequestDto request) {
 		return new ResponseEntity<>(orderService.createOrder(userId,request), HttpStatus.CREATED);
 	}
 	
